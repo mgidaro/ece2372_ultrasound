@@ -1,0 +1,4 @@
+US_version5 are color ultrasound images. Each image is three frames, where the (two frames ago, one frame ago, current frame) are mapped to (blue, green, red). Model input dimension is (3 channels, 640 width, 470 height).
+
+These images should NOT be used to make a new dataset, that should be done with US_version4. If you did it with these the dimensions would be: 
+(3 channels, 3 depth, 640 width, 470 height). Which would be wrong to do because it would be double-counting frames in both the color and depth channels.

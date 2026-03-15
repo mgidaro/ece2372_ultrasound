@@ -1,0 +1,4 @@
+US_version4 are grayscale ultrasound images. Each image is one frame. Model input dimension is (1 channel, 640 width, 470 height).
+
+These images should be used to make a new dataset where successive frames are combined so the model can learn change over time. The dimension would then be: 
+(1 channel, 3 depth, 640 width, 470 height).
