@@ -1,0 +1,114 @@
+m0:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=41440, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 50.8290
+    Test mean angle error: 6.2717 degrees
+
+m1:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv3): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=10080, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 77.2853
+    Test mean angle error: 7.5702 degrees
+
+m2:
+    CNNRegression(
+      (conv1): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=168000, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 90.4167
+    Test mean angle error: 7.8385 degrees
+
+m3:
+    CNNRegression(
+      (conv1): Conv2d(1, 2, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(2, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=20720, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 63.9963
+    Test mean angle error: 7.1406 degrees
+
+m4:
+    CNNRegression(
+      (conv1): Conv2d(1, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(8, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=82880, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 69.4263
+    Test mean angle error: 7.4375 degrees
+
+m5:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=41440, out_features=1, bias=True)
+    )
+
+    Test Loss: 52.3244
+    Test mean angle error: 5.7742 degrees
+
+m6:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=41440, out_features=1024, bias=True)
+      (fc2): Linear(in_features=1024, out_features=256, bias=True)
+      (fc3): Linear(in_features=256, out_features=1, bias=True)
+    )
+
+    Test Loss: 37.4959
+    Test mean angle error: 5.2068 degrees
+
+m7:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (batch1): BatchNorm2d(4, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (batch2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (fc1): Linear(in_features=41440, out_features=128, bias=True)
+      (batch3): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 212.1607
+    Test mean angle error: 11.3445 degrees
+
+m8:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=41440, out_features=128, bias=True)
+      (fc2): Linear(in_features=128, out_features=1, bias=True)
+    )
+
+    Test Loss: 61.0583
+    Test mean angle error: 6.9948 degrees
+
+m9:
+    CNNRegression(
+      (conv1): Conv2d(1, 4, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (conv2): Conv2d(4, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (fc1): Linear(in_features=41440, out_features=1024, bias=True)
+      (fc2): Linear(in_features=1024, out_features=256, bias=True)
+      (fc3): Linear(in_features=256, out_features=64, bias=True)
+      (fc4): Linear(in_features=64, out_features=1, bias=True)
+    )
+    
+    Test Loss: 53.0270
+    Test mean angle error: 5.9841 degrees

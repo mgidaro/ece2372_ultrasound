@@ -109,8 +109,15 @@ class CNNRegression(nn.Module):
             self.fc1 = nn.Linear(in_features=self.linear_line_size, out_features=128)    
             self.fc2 = nn.Linear(in_features=128, out_features=1)
 
-        #elif m_num == 9:
-            #the best of them all
+        elif m_num == 9:
+            self.conv1 = nn.Conv2d(in_channels=self.image_size[0], out_channels=4, kernel_size=3, stride=1, padding=1)
+            self.conv2 = nn.Conv2d(in_channels=4, out_channels=16, kernel_size=3, stride=1, padding=1)
+            
+            self.linear_line_size = int(16*(image_size[1]//4)*(image_size[2]//4))
+            self.fc1 = nn.Linear(in_features=self.linear_line_size, out_features=1024)
+            self.fc2 = nn.Linear(in_features=1024, out_features=256)
+            self.fc3 = nn.Linear(in_features=256, out_features=64)
+            self.fc4 = nn.Linear(in_features=64, out_features=1)
 
         else:
             raise NameError('model doesnt exist!')
@@ -256,13 +263,27 @@ class CNNRegression(nn.Module):
             x = nn.functional.max_pool2d(x, kernel_size=2, stride=2)
             
             x = x.view(-1, self.linear_line_size)
+            x = nn.functional.dropout(x, p=0.2, inplace=False)
             x = self.fc1(x)
             x = nn.functional.relu(x)
-            x = nn.functional.dropout(x, p=0.5, inplace=False)
             x = self.fc2(x)
 
-        #elif m_num == 9:
-            #the best of them all
+        elif m_num == 9:
+            x = self.conv1(x)
+            x = nn.functional.relu(x)
+            x = nn.functional.max_pool2d(x, kernel_size=2, stride=2)
+            x = self.conv2(x)
+            x = nn.functional.relu(x)
+            x = nn.functional.max_pool2d(x, kernel_size=2, stride=2)
+            
+            x = x.view(-1, self.linear_line_size)
+            x = self.fc1(x)
+            x = nn.functional.relu(x)
+            x = self.fc2(x)
+            x = nn.functional.relu(x)
+            x = self.fc3(x)
+            x = nn.functional.relu(x)
+            x = self.fc4(x)
 
         return x
     
@@ -342,6 +363,7 @@ def evaluate_network(model, device, image_size: Tuple[int, int, int] = (3, 640, 
     #resize_size = image_size[1]
     regression_task = RegressionTaskData(grayscale=True, image_folder_path=image_folder_path)#, resize_size=resize_size)
     criterion = nn.MSELoss()
+    model.eval()
 
     # Evaluate the model on the test data
     with torch.no_grad():
@@ -359,11 +381,14 @@ def evaluate_network(model, device, image_size: Tuple[int, int, int] = (3, 640, 
             output_angles = outputs.cpu().numpy()
             target_angles = targets.cpu().numpy()
 
-            print(output_angles)
+            #print(output_angles)
             plt.scatter(target_angles,output_angles,c="blue")
             
             # calculate the angle error 
             angle_error = np.sum(np.abs(target_angles - output_angles)) #MRG: used to say np.rad2deg(target_angles...
+            #print(angle_error)
+            #print(target_angles)
+            #print(np.abs(target_angles - output_angles))
             total_angle_error += angle_error
             n_samples_total += len(output_angles)
 
@@ -382,11 +407,11 @@ def evaluate_network(model, device, image_size: Tuple[int, int, int] = (3, 640, 
 
 if __name__ == '__main__':
     
-    m_num = 0
+    m_num = 9
     num_epochs = 20
     #dont forget
-    filename = f'C:/Users/Mike/Documents/imgAnalysis/models/m{m_num}.pth', 
-    image_folder_path = "C:/Users/Mike/Documents/imgAnalysis/recordings/US_frames/US_version6"
+    filename = f'C:/Users/Mike/Documents/imgAnalysis/ece2372_ultrasound/models/m{m_num}.pth' 
+    image_folder_path = "C:/Users/Mike/Documents/imgAnalysis/ece2372_ultrasound/US_version6"
     image_size: Tuple[int, int, int] = (1, 280, 150)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -401,11 +426,11 @@ if __name__ == '__main__':
     save_model(model, filename=filename)
 
     # Load the model
-    model = load_model(image_size=image_size, filename=filename)
+    model = load_model(image_size=image_size, filename=filename, m_num=m_num)
     model.to(device)
 
     '''print(model)'''
 
     # Evaluate the model
-    evaluate_network(model, device, image_size=image_size, image_folder_path=image_folder_path, m_num=m_num)
+    evaluate_network(model, device, image_size=image_size, image_folder_path=image_folder_path)
     

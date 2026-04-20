@@ -130,7 +130,7 @@ class RegressionTaskData:
             transform=self.train_transforms
         )
         # This constructs the dataloader that actually determins how images will be loaded in batches
-        trainloader = torch.utils.data.DataLoader(train_data, batch_size=8)
+        trainloader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=True)
         return trainloader
 
     def make_testloader(
